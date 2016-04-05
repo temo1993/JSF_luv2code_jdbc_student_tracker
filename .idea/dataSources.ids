@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
   <data-source name="MySQL - student_tracker@localhost" uuid="a268c19b-67b8-4c8a-a9e1-97ca97cebcfe">
-    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+    <database-info product="MySQL" version="5.7.11-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.38 ( Revision: fe541c166cec739c74cc727c5da96c1028b4834a )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <database-model serializer="dbm" rdbms="MYSQL" format-version="2.5">
+      <schema id="1" name="student_tracker"/>
+      <table id="2" parent="1" name="student"/>
+      <column id="3" parent="2" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="4" parent="2" name="first_name">
+        <data-type>varchar(45)</data-type>
+      </column>
+      <column id="5" parent="2" name="last_name">
+        <data-type>varchar(45)</data-type>
+      </column>
+      <column id="6" parent="2" name="email">
+        <data-type>varchar(45)</data-type>
+      </column>
+      <key id="7" parent="2" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+    </database-model>
   </data-source>
 </component>
