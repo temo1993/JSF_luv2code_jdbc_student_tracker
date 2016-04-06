@@ -123,4 +123,21 @@ public class StudentController {
         }
         return "list-students?faces-redirect=true";
     }
+
+    public String deleteStudent(int studentId) {
+        logger.info("Deleting student id: " + studentId);
+
+        try{
+            // Delete the student from the database
+            studentDbUtil.deleteStudent(studentId);
+        } catch (Exception exc){
+            // Send this to server logs
+            logger.log(Level.SEVERE, "Error deleting student id: " + studentId, exc);
+
+            // Add error message for JSF page
+            addErrorMessage(exc);
+            return null;
+        }
+        return "list-students";
+    }
 }

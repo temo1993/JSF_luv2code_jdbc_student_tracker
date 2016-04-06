@@ -180,4 +180,28 @@ class StudentDbUtil {
             }
         }
     }
+
+    void deleteStudent(int studentId) throws Exception{
+        Connection myConn = null;
+        PreparedStatement preparedStatement = null;
+
+        try{
+            myConn = dataSource.getConnection();
+
+            String sql = "DELETE FROM student WHERE id=?";
+            preparedStatement = myConn.prepareStatement(sql);
+
+            // Set params
+            preparedStatement.setInt(1, studentId);
+
+            preparedStatement.execute();
+        }finally {
+            if (myConn != null) {
+                myConn.close();
+            }
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+        }
+    }
 }

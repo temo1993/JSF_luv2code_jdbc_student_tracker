@@ -34,3 +34,15 @@ html, body {
 #header {width: 70%; margin-top: 0; background: #0775d3; padding: 20px; margin-bottom: 25px}
 #header h2 {width: 100%; margin: auto; color: #FFFFFF}
 #container {width: 100%; margin: auto}
+
+.add-student-button {
+    margin-bottom: 25px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: 900;
+    padding: 5px 20px;
+    background: none repeat scroll 0 0 #bababa;
+    color: black;
+}
+
+.add-student-button:hover {background-color: aquamarine;}
