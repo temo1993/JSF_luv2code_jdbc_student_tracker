@@ -111,4 +111,73 @@ class StudentDbUtil {
             }
         }
     }
+
+    Student getStudent(int studentId) throws Exception{
+        Connection myConn = null;
+        PreparedStatement prepStmt = null;
+        ResultSet myRs = null;
+
+        try{
+            myConn = dataSource.getConnection();
+            String sql = "SELECT * FROM student WHERE id=?";
+            prepStmt = myConn.prepareStatement(sql);
+
+            // Set params
+            prepStmt.setInt(1, studentId);
+            myRs = prepStmt.executeQuery();
+
+            Student theStudent;
+
+            // Retrieve data frm result set row
+            if (myRs.next()) {
+                int id = myRs.getInt("id");
+                String firstName = myRs.getString("first_name");
+                String lastName = myRs.getString("last_name");
+                String email = myRs.getString("email");
+
+                theStudent = new Student(id, firstName, lastName, email);
+            } else {
+                throw  new Exception("Could not find student id: " + studentId);
+            }
+            return theStudent;
+        } finally {
+            if (myConn != null) {
+                myConn.close();
+            }
+            if (prepStmt != null) {
+                prepStmt.close();
+            }
+            if (myRs != null) {
+                myRs.close();
+            }
+        }
+    }
+
+    void updateStudent(Student theStudent) throws Exception{
+        Connection myConn = null;
+        PreparedStatement preparedStatement = null;
+
+        try{
+            myConn = dataSource.getConnection();
+
+            String sql = "UPDATE student SET first_name=?, last_name=?, " +
+                    "email=? WHERE id=?";
+            preparedStatement = myConn.prepareStatement(sql);
+
+            // Set params
+            preparedStatement.setString(1, theStudent.getFirstName());
+            preparedStatement.setString(2, theStudent.getLastName());
+            preparedStatement.setString(3, theStudent.getEmail());
+            preparedStatement.setInt(4, theStudent.getId());
+
+            preparedStatement.execute();
+        }finally {
+            if (myConn != null) {
+                myConn.close();
+            }
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+        }
+    }
 }
