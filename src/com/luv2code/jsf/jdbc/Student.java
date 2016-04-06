@@ -1,6 +1,8 @@
 package com.luv2code.jsf.jdbc;
 
-public class Student {
+import java.io.Serializable;
+
+public class Student implements Serializable{
     private int id;
     private String firstName;
     private String lastName;
@@ -46,5 +48,15 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

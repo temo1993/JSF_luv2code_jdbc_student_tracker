@@ -14,10 +14,8 @@ import java.util.List;
 class StudentDbUtil {
     private static StudentDbUtil instance;
     private DataSource dataSource;
-    private String jndiName = "java:comp/env/student_tracker";
-    private Connection connection;
 
-    public static StudentDbUtil getInstance() throws Exception{
+    static StudentDbUtil getInstance() throws Exception{
         if (instance == null) {
             instance = new StudentDbUtil();
         }
@@ -29,8 +27,13 @@ class StudentDbUtil {
     }
 
     private DataSource getDataSource() throws NamingException{
-        Context context = new InitialContext();
-        return (DataSource) context.lookup(jndiName);
+        Context initContext = new InitialContext();
+        Context envContext  = (Context)initContext.lookup("java:/comp/env");
+        return  (DataSource)envContext.lookup("jdbc/student_tracker");
+
+//        Context context = new InitialContext();
+//        String jndiName = "java:comp/env/student_tracker";
+//        return (DataSource) context.lookup(jndiName);
     }
 
     List<Student> getStudents() throws Exception {
@@ -40,7 +43,7 @@ class StudentDbUtil {
         ResultSet myRs = null;
 
         try {
-            myConn = getConnection();
+            myConn = dataSource.getConnection();
             String sql = "SELECT * FROM student ORDER BY last_name";
             myStmt = myConn.createStatement();
             myRs = myStmt.executeQuery(sql);
@@ -84,9 +87,5 @@ class StudentDbUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    private Connection getConnection() {
-        return connection;
     }
 }
