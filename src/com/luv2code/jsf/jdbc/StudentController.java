@@ -27,7 +27,7 @@ public class StudentController {
         return students;
     }
 
-    public void loadStudents(){
+    public void loadStudent(){
         logger.info("Loading Students");
         students.clear();
 
@@ -43,7 +43,7 @@ public class StudentController {
         }
     }
 
-    public String loadStudents(int studentId){
+    public String loadStudent(int studentId){
         logger.info("Loading Student: " + studentId);
 
         try{

@@ -41,9 +41,9 @@
                     requiredMessage="Your email is mandatory"/>
                     <h:message for="email"/>
 
-                    <h:outputLabel/>
+                    <h:inputHidden value="#{student.id}"/>
                     <h:commandButton value="Save" styleClass="save"
-                                     action="#{studentController.updateStudent(student)}"/>
+                           action="#{studentController.updateStudent(student)}"/>
 
 
                 </h:panelGrid>

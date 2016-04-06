@@ -32,6 +32,6 @@
     </resource-ref>
 
     <welcome-file-list>
-        <welcome-file>index.xhtml</welcome-file>
+        <welcome-file>list-students.xhtml</welcome-file>
     </welcome-file-list>
 </web-app>
