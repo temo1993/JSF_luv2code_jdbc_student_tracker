@@ -65,4 +65,18 @@ public class StudentController {
     public void setLogger(Logger logger) {
         this.logger = logger;
     }
+
+    public String addStudent(Student theStudent) {
+        logger.info("Adding Student: " + theStudent);
+        try{
+            // Add Student to the database
+            studentDbUtil.addStudent(theStudent);
+        }catch (Exception exc){
+            // Send this to server logs
+            logger.log(Level.SEVERE, "Error adding students", exc);
+
+            // Add error message for JSF page
+            addErrorMessage(exc);
+        }return theStudent.toString();
+    }
 }

@@ -1,7 +1,10 @@
 package com.luv2code.jsf.jdbc;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import java.io.Serializable;
-
+@ManagedBean
+@RequestScoped
 public class Student implements Serializable{
     private int id;
     private String firstName;

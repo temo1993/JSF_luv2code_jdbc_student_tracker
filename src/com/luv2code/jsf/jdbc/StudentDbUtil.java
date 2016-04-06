@@ -4,10 +4,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,6 +83,32 @@ class StudentDbUtil {
             myRs.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    void addStudent(Student theStudent) throws Exception{
+        Connection myConn = null;
+        PreparedStatement myPrepStmt = null;
+
+        try{
+            myConn = dataSource.getConnection();
+            String sql = "INSERT INTO student (first_name, last_name, email) values " +
+                    "(?, ?, ?)";
+            myPrepStmt = myConn.prepareStatement(sql);
+
+            // Set params
+            myPrepStmt.setString(1, theStudent.getFirstName());
+            myPrepStmt.setString(2, theStudent.getLastName());
+            myPrepStmt.setString(3, theStudent.getEmail());
+
+            myPrepStmt.execute();
+        } finally {
+            if (myConn != null) {
+                myConn.close();
+            }
+            if (myPrepStmt != null) {
+                myPrepStmt.close();
+            }
         }
     }
 }
