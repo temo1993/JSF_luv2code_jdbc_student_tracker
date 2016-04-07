@@ -68,24 +68,6 @@ class StudentDbUtil {
         return students;
     }
 
-    private void close(Connection myConn, Statement myStmt, ResultSet myRs) {
-        try {
-            myConn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            myStmt.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            myRs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     void addStudent(Student theStudent) throws Exception{
         Connection myConn = null;
         PreparedStatement myPrepStmt = null;
@@ -103,12 +85,7 @@ class StudentDbUtil {
 
             myPrepStmt.execute();
         } finally {
-            if (myConn != null) {
-                myConn.close();
-            }
-            if (myPrepStmt != null) {
-                myPrepStmt.close();
-            }
+            close(myConn, myPrepStmt);
         }
     }
 
@@ -141,15 +118,7 @@ class StudentDbUtil {
             }
             return theStudent;
         } finally {
-            if (myConn != null) {
-                myConn.close();
-            }
-            if (prepStmt != null) {
-                prepStmt.close();
-            }
-            if (myRs != null) {
-                myRs.close();
-            }
+            close(myConn, prepStmt, myRs);
         }
     }
 
@@ -172,12 +141,7 @@ class StudentDbUtil {
 
             preparedStatement.execute();
         }finally {
-            if (myConn != null) {
-                myConn.close();
-            }
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
+            close(myConn, preparedStatement);
         }
     }
 
@@ -196,12 +160,42 @@ class StudentDbUtil {
 
             preparedStatement.execute();
         }finally {
-            if (myConn != null) {
-                myConn.close();
+            close(myConn, preparedStatement);
+        }
+    }
+
+    private void close(Connection connection, PreparedStatement preparedStatement){
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-            if (preparedStatement != null) {
+        }
+        if (preparedStatement != null) {
+            try {
                 preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
+        }
+    }
+
+    private void close(Connection myConn, Statement myStmt, ResultSet myRs) {
+        try {
+            myConn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            myStmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            myRs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }
